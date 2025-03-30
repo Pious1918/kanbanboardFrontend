@@ -1,0 +1,42 @@
+<header class="fixed w-full">
+    <nav class="bg-gray-100 border-gray-200 py-2.5">
+        <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+            <a href="" class="flex items-center">
+                <img src="https://demo.themesberg.com/landwind/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-gray-900">FlowTask</span>
+            </a>
+
+            <div class="flex items-center lg:order-2 space-x-3">
+                <a [routerLink]="['/login']"
+                    class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 lg:px-5 lg:py-2.5 focus:outline-none">Login</a>
+
+                <a [routerLink]="['/register']" 
+                    class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 lg:px-5 lg:py-2.5 focus:outline-none">Register Now</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="bg-gray-50 h-screen">
+    <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-16 xl:gap-12 lg:py-16 lg:grid-cols-12 lg:pt-28">
+        <div class="lg:col-span-5 lg:flex">
+            <img src="/assets/todolist.jpg" alt="hero image">
+        </div>
+        
+        <div class="mr-auto place-self-center lg:col-span-7">
+            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl text-gray-900">
+                Visualize. Organize. Achieve. 🎯</h1>
+            <p class="max-w-2xl mb-6 font-light text-gray-600 lg:mb-8 md:text-lg lg:text-xl border border-gray-300 rounded-lg p-4">
+                FlowTask is a powerful Kanban-style to-do list that helps you visualize your tasks, stay organized, and boost productivity. Effortlessly drag & drop tasks across customizable boards, track progress in real time, and get more done with a clear workflow. Whether you're managing personal goals or team projects, FlowTask keeps you on track and in control.
+            </p>
+            <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <a [routerLink]="['/register']" 
+                    class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100">
+                    Get Started
+                </a>
+            </div>
+        </div>
+     
+    </div>
+</section>
+
