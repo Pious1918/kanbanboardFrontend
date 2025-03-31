@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class S3Service {
 
-  private _api = 'http://localhost:3000'
+  private _api = 'https://kanboardbackend.onrender.com'
   constructor(private _http: HttpClient) { }
 
   generatePresignedurl(fileName: string, fileType: string): Observable<{ presignedUrl: string }> {

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
 
-  private _api = "http://localhost:3000"
+  private _api = "https://kanboardbackend.onrender.com"
   constructor(private _http:HttpClient) { }
 
 
