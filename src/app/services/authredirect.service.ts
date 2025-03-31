@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 })
 export class AuthredirectService {
 
-  constructor(private _authservice:AuthService , private _router:Router) { }
+  constructor(private _authservice: AuthService, private _router: Router) { }
 
   canActivate(): boolean {
     if (this._authservice.isAuthenticated()) {
-      this._router.navigate(['/tasks']);  // Redirect logged-in users to landing page
+      this._router.navigate(['/tasks']);
       return false;
     }
     return true;

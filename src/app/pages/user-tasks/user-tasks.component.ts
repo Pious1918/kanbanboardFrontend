@@ -23,10 +23,10 @@ import { Itaskdata } from '../../interfaces/task.interface';
 })
 export class UserTasksComponent implements OnInit {
 
-
-
   isModalOpen: boolean = false;
-
+  todo: any[] = [];
+  inprogress: any[] = [];
+  done: any[] = [];
 
   constructor(private _userservice: UserService) {
 
@@ -35,53 +35,6 @@ export class UserTasksComponent implements OnInit {
   ngOnInit(): void {
     this.gettasks()
   }
-
-
-  todo: any[] = [];
-  inprogress: any[] = [];
-  done: any[] = [];
-
-
-  drop(event: CdkDragDrop<string[]>) {
-
-
-    console.log("events are", event)
-    if (event.previousContainer === event.container) {
-      console.log("inside the same container")
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-
-      const task: any = event.previousContainer.data[event.previousIndex]
-      let newStatus: string = '';
-
-
-      if (event.container.id === 'todolist') {
-
-        newStatus = 'todo'
-      }
-      else if (event.container.id === 'inprogresslist') {
-        console.log("herer")
-        newStatus = 'inprogress'
-      }
-      else if (event.container.id === 'completedlist') {
-        newStatus = 'completed'
-      }
-
-
-      task.status = newStatus
-
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-
-      this.updattask(task)
-    }
-  }
-
-
 
   gettasks() {
     this._userservice.getalltask().subscribe({
@@ -127,6 +80,48 @@ export class UserTasksComponent implements OnInit {
       }
     })
   }
+
+
+  //this eventfn is maintaining the drag and drop
+  drop(event: CdkDragDrop<string[]>) {
+    console.log("events are", event)
+
+    if (event.previousContainer === event.container) {
+      console.log("inside the same container")
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    }
+
+    else {
+
+      const task: any = event.previousContainer.data[event.previousIndex]
+      let newStatus: string = '';
+
+
+      if (event.container.id === 'todolist') {
+        newStatus = 'todo'
+      }
+      else if (event.container.id === 'inprogresslist') {
+        newStatus = 'inprogress'
+      }
+      else if (event.container.id === 'completedlist') {
+        newStatus = 'completed'
+      }
+
+      task.status = newStatus
+
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      this.updattask(task)
+    }
+  }
+
+
+
 
 
   openModal(): void {
@@ -185,7 +180,7 @@ export class UserTasksComponent implements OnInit {
       status: task.status
     }
 
-    this._userservice.updatetask(taskdata).subscribe({
+    this._userservice.updatetaskstatus(taskdata).subscribe({
       next: (res) => {
         console.log(res)
       }
@@ -203,12 +198,16 @@ export class UserTasksComponent implements OnInit {
         this.todo = this.todo.filter(task => task._id !== taskId);
         this.inprogress = this.inprogress.filter(task => task._id !== taskId);
         this.done = this.done.filter(task => task._id !== taskId);
-
-        console.log("Updated task lists after deletion:", { todo: this.todo, inprogress: this.inprogress, done: this.done });
       },
+
       error: (err) => {
         console.error("Error deleting task:", err);
+      },
+
+      complete: () => {
+        console.log("observable completed")
       }
+
     });
   }
 
@@ -228,17 +227,19 @@ export class UserTasksComponent implements OnInit {
   }
 
   updateTaskvalues() {
-
-
     console.log("updated task", this.selectedTask)
-
     this._userservice.updateTaskdata(this.selectedTask).subscribe({
       next: (res) => {
         this.gettasks();
 
       },
+
       error: (err) => {
         console.error("Error updating task:", err);
+      },
+
+      complete: () => {
+        console.log("observable completed")
       }
     })
 

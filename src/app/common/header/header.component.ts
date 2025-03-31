@@ -1,27 +1,33 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserService } from '../../services/user.service';
+import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
+import { selectImage, selectName } from '../../store/user.selector';
+import { loaduserProfile } from '../../store/user.action';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule , CommonModule],
+  imports: [RouterModule, CommonModule, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
 
-  defaultProfilePic: any = ''
   showProfileMenu = false;
-  currentUser = {
-    _id: 0,
-    name: '',
-    avatar: ''
-  };
+  name$: Observable<string>;
+  profilepic$: Observable<string | null>;
 
+  constructor(private _router: Router, private _userservice: UserService, private _store: Store) {
 
-  constructor(private _router:Router){}
+    this.name$ = this._store.select(selectName)
+    this.profilepic$ = this._store.select(selectImage)
+    this._store.dispatch(loaduserProfile())
+
+  }
 
 
   toggleProfileMenu() {
@@ -51,4 +57,5 @@ export class HeaderComponent {
       }
     })
   }
+  
 }

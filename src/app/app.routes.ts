@@ -13,6 +13,8 @@ export const routes: Routes = [
     {path:"" , component:LandingpageComponent , canActivate:[AuthredirectService]},
     {path:"register" , component:UserRegisterComponent, canActivate:[AuthredirectService] },
     {path:"login" , component:UserLoginComponent , canActivate:[AuthredirectService]},
+
+    
     {path:"tasks" , component:UserTasksComponent , canActivate:[AuthService]},
     {path:"profile" , component:UserProfileComponent , canActivate:[AuthService]}
 ];
